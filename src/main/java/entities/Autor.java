@@ -1,12 +1,12 @@
-package com.example.inicial1.entities;
+package entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.envers.Audited;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -15,6 +15,7 @@ import java.io.Serializable;
 @Getter
 @ToString
 @Builder
+@Audited
 
 public class Autor implements Serializable {
 
@@ -24,5 +25,12 @@ public class Autor implements Serializable {
     private String nombre;
     private  String apellido;
     private String biografia;
+
+    //relacion con libro
+    @ManyToMany(mappedBy = "autores")
+    @Builder.Default
+    private Set<Libro> libros = new HashSet<>();
+
+
 
 }

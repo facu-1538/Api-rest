@@ -1,10 +1,8 @@
-package com.example.inicial1.entities;
+package entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.envers.Audited;
 
 import java.io.Serializable;
 
@@ -15,6 +13,7 @@ import java.io.Serializable;
 @Getter
 @ToString
 @Builder
+@Audited
 
 public class Localidad implements Serializable {
 
@@ -23,4 +22,8 @@ public class Localidad implements Serializable {
     private long id;
     private String denominacion;
 
+    //relacion con domicilio
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "fk_articulo")
+    private Domicilio domicilio;
 }

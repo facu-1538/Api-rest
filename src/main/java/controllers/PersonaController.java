@@ -1,20 +1,15 @@
-package com.example.inicial1.controllers;
+package controllers;
 
-import com.example.inicial1.dtos.PersonaDto;
-import com.example.inicial1.entities.Persona;
-import com.example.inicial1.services.PersonaServices;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
+import entities.Persona;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/personas")
+
 public class PersonaController {
- //  @Autowired
-//PersonaServices servicio;
 
     @GetMapping("")
     public ResponseEntity<?> getAll(){
@@ -26,8 +21,6 @@ public class PersonaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error, por favor intente más tarde\"}");
         }
     }
-
-
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable Long id){
@@ -44,7 +37,7 @@ public class PersonaController {
 
         System.out.println("Estos datos los tomo del cuerpo del Formulario");
         System.out.println("Nombre :" + entity.getNombre());
-        System.out.println("Nombre :" + entity.getApellido());
+        System.out.println("Apellido :" + entity.getApellido());
 
 
 
@@ -59,7 +52,7 @@ public class PersonaController {
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Persona entity){
         System.out.println("EL ID LO TOMO DE LA URL");
-        System.out.println("Nombre :" + entity.getId());
+        System.out.println("ID :" + entity.getId());
         System.out.println("Estos datos los tomo del cuerpo del Formulario");
         System.out.println("Nombre :" + entity.getNombre());
         System.out.println("Apellido :" + entity.getApellido());

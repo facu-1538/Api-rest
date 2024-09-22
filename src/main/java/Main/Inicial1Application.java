@@ -1,12 +1,13 @@
-package com.example.inicial1;
+package Main;
 
-import com.example.inicial1.entities.Domicilio;
-import com.example.inicial1.entities.Persona;
-import com.example.inicial1.repositories.PersonaRepository;
+import entities.Autor;
+import entities.Domicilio;
+import entities.Persona;
+import org.springframework.context.annotation.ComponentScan;
+import repositories.*;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,16 +17,22 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootApplication
+
+@ComponentScan(basePackages = {"Main", "repositories", "entities", "config","audit","controllers","dtos","services",})
+
 public class Inicial1Application {
 	private static final Logger logger = LoggerFactory.getLogger(Inicial1Application.class);
 
-	@Autowired
-	private PersonaRepository personaRepository;
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(Inicial1Application.class, args);
 
 		System.out.println("funcionando");
 	}
+
+
+	private PersonaRepository personaRepository;
 
 
 
@@ -35,15 +42,15 @@ public class Inicial1Application {
 	CommandLineRunner init(PersonaRepository personaRepository) {
 		return args -> {
 	// Creo un objeto persona
-Persona per1 = Persona.builder().
+		Persona per1 = Persona.builder().
 		nombre("Alberto").apellido("Cortez").
 		build();
 
-Domicilio dom1 = Domicilio.builder().
+		Domicilio dom1 = Domicilio.builder().
 		calle("Suipacha").
 		numero(239).build();
 
-per1.setDomicilio(dom1);
+		per1.setDomicilio(dom1);
 
 			personaRepository.save(per1);
 
@@ -86,6 +93,8 @@ per1.setDomicilio(dom1);
 		};
 
 		};
+
+
 
 
 
